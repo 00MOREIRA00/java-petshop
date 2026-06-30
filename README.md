@@ -1,29 +1,40 @@
 # Java Petshop
 
-Projeto de estudo em Java para gerenciar produtos de um petshop. A versao atual implementa persistencia em SQLite e operacoes basicas de cadastro, consulta, atualizacao e remocao.
+## Objetivo
 
-## Tecnologias
+O Java Petshop e um projeto de estudo desenvolvido em Java para simular o gerenciamento de produtos de um petshop.
+Atualmente, o sistema permite cadastrar, consultar, atualizar, remover produtos e controlar a movimentacao de estoque com persistencia em SQLite.
 
-- Java 17
-- Maven
-- SQLite
-- JDBC
-- JUnit 5 (configurado, ainda sem testes)
+## Publico-alvo
 
-## Estado atual
+Este projeto foi pensado como exercicio pratico de back-end e logica de negocio.
 
-O sistema possui:
+- estudantes de Java;
+- desenvolvedores iniciantes;
+- pessoas que querem praticar CRUD com JDBC e SQLite;
+- quem deseja estudar organizacao em camadas `model`, `repository` e `service`.
 
-- cadastro de produto;
+## Funcionalidades principais
+
+- cadastro de produtos;
 - listagem de produtos;
 - busca de produto por ID;
-- atualizacao de produto;
-- remocao de produto;
-- criacao automatica da tabela `produtos` no SQLite.
+- atualizacao de produtos;
+- remocao de produtos;
+- adicao de estoque;
+- remocao de estoque;
+- validacoes de regras de negocio no servico;
+- criacao automatica da tabela `produtos`.
 
-O `Main` atual executa apenas uma demonstracao: cadastra um produto e lista os registros salvos. O menu interativo, as validacoes de negocio e as operacoes especificas de entrada e saida de estoque ainda nao foram implementados.
+## Stack
 
-## Estrutura
+- Frontend: nao se aplica, aplicacao executada via terminal;
+- Backend: Java 17;
+- Banco de dados: SQLite;
+- Infraestrutura: JDBC e Maven;
+- Deploy: execucao local.
+
+## Estrutura do projeto
 
 ```text
 src/main/java/br/com/petshop/
@@ -33,19 +44,48 @@ src/main/java/br/com/petshop/
   service/ProdutoService.java
 ```
 
-O banco e criado no arquivo `petshop.db`, no diretorio em que a aplicacao for executada.
+## Como rodar localmente
 
-## Executar
+### Pre-requisitos
 
-Compile o projeto:
+- Java 17 instalado;
+- Maven instalado.
 
-```powershell
+### Passos
+
+```bash
+# instalar dependencias e compilar o projeto
 mvn compile
 ```
 
-Execute a classe `br.com.petshop.Main` pela IDE ou com um comando Maven configurado para execucao.
+Depois disso, execute a classe `br.com.petshop.Main` pela sua IDE.
+
+Observacoes:
+
+- o banco `petshop.db` e criado automaticamente na primeira execucao;
+- nao ha necessidade de configurar variaveis de ambiente;
+- nao ha migrations separadas neste projeto.
+
+## Estado atual do projeto
+
+Este projeto esta funcional para o escopo proposto e sera pausado por enquanto.
+O foco principal foi consolidar a base da aplicacao com persistencia local, estrutura em camadas e operacoes centrais de estoque e produtos.
+
+## Testes
+
+O projeto possui 15 testes automatizados com JUnit 5, cobrindo regras de negocio do `ProdutoService` e operacoes principais do `ProdutoRepository`.
+
+Para executar a suite:
+
+```bash
+mvn test
+```
 
 ## Documentacao
 
-- [Estado do projeto](docs/projeto.md)
+- [Visao geral do projeto](docs/projeto.md)
 - [Conceitos de Java](docs/java.md)
+
+## Licenca
+
+Este projeto esta sob a licenca definida no arquivo [LICENSE](LICENSE).
