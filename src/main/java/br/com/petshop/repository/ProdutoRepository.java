@@ -17,19 +17,35 @@ public class ProdutoRepository {
 
     private final String databaseUrl;
 
+    /**
+     * Cria uma instância do repositório usando o banco de dados padrão da aplicação.
+     */
     public ProdutoRepository() {
         this("jdbc:sqlite:petshop.db");
     }
 
+    /**
+     * Cria uma instância do repositório com a URL de banco de dados informada.
+     *
+     * @param databaseUrl URL de conexão com o banco de dados
+     */
     public ProdutoRepository(String databaseUrl) {
         this.databaseUrl = databaseUrl;
         criarTabelaSeNaoExistir();
     }
 
+    /**
+     * Abre uma conexão com o banco de dados configurado.
+     *
+     * @return conexão ativa com o banco de dados
+     */
     private Connection conectar() throws SQLException {
         return DriverManager.getConnection(databaseUrl);
     }
 
+    /**
+     * Cria a tabela de produtos caso ela ainda não exista no banco de dados.
+     */
     private void criarTabelaSeNaoExistir() {
         String sql = """
                 CREATE TABLE IF NOT EXISTS produtos (
@@ -50,6 +66,12 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Cadastra um novo produto no banco de dados.
+     *
+     * @param produto produto que será cadastrado
+     * @return produto cadastrado com o identificador gerado
+     */
     public Produto cadastrar(Produto produto) {
         String sql = """
                 INSERT INTO produtos (nome, preco, estoque)
@@ -81,6 +103,11 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Lista todos os produtos cadastrados no banco de dados.
+     *
+     * @return lista com todos os produtos encontrados
+     */
     public List<Produto> listarTodos() {
         String sql = """
                 SELECT id, nome, preco, estoque
@@ -106,6 +133,12 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Busca um produto pelo identificador.
+     *
+     * @param id identificador do produto
+     * @return {@code Optional} contendo o produto quando ele for encontrado
+     */
     public Optional<Produto> buscarPorId(Integer id) {
         String sql = """
                 SELECT id, nome, preco, estoque
@@ -132,6 +165,12 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Atualiza os dados de um produto existente no banco de dados.
+     *
+     * @param produto produto com os dados atualizados
+     * @return {@code true} quando ao menos um registro for atualizado
+     */
     public boolean atualizar(Produto produto) {
         String sql = """
                 UPDATE produtos
@@ -156,6 +195,12 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Remove um produto do banco de dados com base no identificador.
+     *
+     * @param id identificador do produto
+     * @return {@code true} quando ao menos um registro for removido
+     */
     public boolean removerPorId(Integer id) {
         String sql = """
                 DELETE FROM produtos
@@ -176,6 +221,12 @@ public class ProdutoRepository {
         }
     }
 
+    /**
+     * Converte o resultado da consulta em uma instância de produto.
+     *
+     * @param resultSet resultado da consulta posicionado no registro atual
+     * @return produto mapeado a partir do registro atual
+     */
     private Produto mapearProduto(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
         String nome = resultSet.getString("nome");
